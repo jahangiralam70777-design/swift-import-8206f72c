@@ -1152,8 +1152,9 @@ export function UserManagementFlow() {
                           {new Date(u.created_at).toLocaleDateString()}
                         </td>
 
-                        <td className="px-3 py-3">
-                          <div className="flex items-center gap-1">
+                        <td className="px-4 py-3.5">
+                          <div className="flex items-center gap-0.5 opacity-70 transition-opacity group-hover:opacity-100">
+
                             <IconBtn title="View details" onClick={() => setViewing(u)}>
                               <Eye className="h-3.5 w-3.5" />
                             </IconBtn>
