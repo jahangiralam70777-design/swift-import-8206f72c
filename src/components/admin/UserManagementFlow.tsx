@@ -136,10 +136,25 @@ const REFERRAL_OPTIONS = [
 ] as const;
 
 const STATUS_TONE: Record<string, string> = {
-  active: "border-emerald-400/40 bg-emerald-500/10 text-emerald-400",
-  pending: "border-amber-400/40 bg-amber-500/10 text-amber-400",
-  suspended: "border-rose-400/40 bg-rose-500/10 text-rose-400",
-  deleted: "border-zinc-400/40 bg-zinc-500/10 text-zinc-400",
+  active:
+    "border-emerald-400/30 bg-emerald-500/10 text-emerald-500 dark:text-emerald-300 ring-1 ring-inset ring-emerald-400/20",
+  pending:
+    "border-amber-400/30 bg-amber-500/10 text-amber-600 dark:text-amber-300 ring-1 ring-inset ring-amber-400/20",
+  suspended:
+    "border-rose-400/30 bg-rose-500/10 text-rose-500 dark:text-rose-300 ring-1 ring-inset ring-rose-400/20",
+  deleted:
+    "border-zinc-400/30 bg-zinc-500/10 text-zinc-500 dark:text-zinc-300 ring-1 ring-inset ring-zinc-400/20",
+};
+
+const LEVEL_TONE: Record<string, string> = {
+  student:
+    "bg-sky-500/10 text-sky-600 dark:text-sky-300 ring-1 ring-inset ring-sky-400/25",
+  professional:
+    "bg-violet-500/10 text-violet-600 dark:text-violet-300 ring-1 ring-inset ring-violet-400/25",
+  certificate:
+    "bg-fuchsia-500/10 text-fuchsia-600 dark:text-fuchsia-300 ring-1 ring-inset ring-fuchsia-400/25",
+  expert:
+    "bg-amber-500/10 text-amber-600 dark:text-amber-300 ring-1 ring-inset ring-amber-400/25",
 };
 
 function fmtDuration(seconds: number) {
