@@ -994,18 +994,19 @@ export function UserManagementFlow() {
       {/* Main grid: table + live activity */}
       <section className="grid gap-4 xl:grid-cols-[1fr_320px]">
         {/* Table */}
-        <div className="glass shadow-card-soft overflow-hidden rounded-2xl">
-          <div className="flex items-center justify-between border-b border-border/40 px-4 py-3">
-            <div>
-              <h3 className="font-display text-sm font-bold tracking-tight">All Users</h3>
-              <p className="text-[11px] text-muted-foreground">
-                Page {page} of {totalPages} · live sync
+        <div className="glass shadow-card-soft overflow-hidden rounded-2xl border border-border/50 ring-1 ring-inset ring-white/5 dark:ring-white/[0.03]">
+          <div className="flex items-center justify-between gap-3 border-b border-border/50 bg-gradient-to-b from-background/40 to-transparent px-5 py-4">
+            <div className="space-y-0.5">
+              <h3 className="font-display text-base font-semibold tracking-tight">All Users</h3>
+              <p className="text-[11px] font-medium text-muted-foreground">
+                Page {page} of {totalPages} <span className="mx-1 text-muted-foreground/50">•</span> Live sync
               </p>
             </div>
-            <div className="flex items-center gap-2 text-xs text-muted-foreground">
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400 shadow-glow">
-                <span className="absolute inset-0 animate-ping rounded-full bg-emerald-400/60" />
-              </span>{" "}
+            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-medium text-emerald-600 ring-1 ring-inset ring-emerald-400/20 dark:text-emerald-300">
+              <span className="relative inline-flex h-1.5 w-1.5">
+                <span className="absolute inset-0 animate-ping rounded-full bg-emerald-400/70" />
+                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+              </span>
               Realtime
             </div>
           </div>
@@ -1020,14 +1021,14 @@ export function UserManagementFlow() {
               </div>
             ) : (
               <table className="w-full text-xs">
-                <thead className="bg-background/30 text-muted-foreground">
+                <thead className="bg-muted/40 text-[10px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
                   <tr className="text-left">
-                    <th className="px-3 py-2 w-9">
+                    <th className="px-4 py-3 w-9">
                       <input
                         type="checkbox"
                         checked={allOnPageSelected}
                         onChange={toggleAll}
-                        className="h-3.5 w-3.5 rounded border-border accent-violet-500"
+                        className="h-3.5 w-3.5 rounded-[4px] border-border accent-violet-500"
                       />
                     </th>
                     {[
