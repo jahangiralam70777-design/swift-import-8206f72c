@@ -1041,7 +1041,7 @@ export function UserManagementFlow() {
                       { label: "Joined", key: "joined" as const },
                       { label: "Actions", key: null },
                     ].map((h) => (
-                      <th key={h.label} className="whitespace-nowrap px-3 py-2 font-medium">
+                      <th key={h.label} className="whitespace-nowrap px-4 py-3 font-medium">
                         {h.key ? (
                           <button
                             type="button"
