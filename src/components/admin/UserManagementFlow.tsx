@@ -994,41 +994,41 @@ export function UserManagementFlow() {
       {/* Main grid: table + live activity */}
       <section className="grid gap-4 xl:grid-cols-[1fr_320px]">
         {/* Table */}
-        <div className="glass shadow-card-soft overflow-hidden rounded-2xl border border-border/50 ring-1 ring-inset ring-white/5 dark:ring-white/[0.03]">
-          <div className="flex items-center justify-between gap-3 border-b border-border/50 bg-gradient-to-b from-background/40 to-transparent px-5 py-4">
-            <div className="space-y-0.5">
-              <h3 className="font-display text-base font-semibold tracking-tight">All Users</h3>
+        <div className="glass shadow-card-soft overflow-hidden rounded-2xl border border-border/40 ring-1 ring-inset ring-white/[0.04] dark:ring-white/[0.03]">
+          <div className="flex items-center justify-between gap-3 border-b border-border/40 bg-gradient-to-b from-background/60 to-background/20 px-6 py-5">
+            <div className="space-y-1">
+              <h3 className="font-display text-lg font-bold tracking-tight text-foreground">All Users</h3>
               <p className="text-[11px] font-medium text-muted-foreground">
-                Page {page} of {totalPages} <span className="mx-1 text-muted-foreground/50">•</span> Live sync
+                Page {page} of {totalPages} <span className="mx-1.5 text-muted-foreground/40">|</span> Live sync
               </p>
             </div>
-            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/30 bg-emerald-500/10 px-2.5 py-1 text-[11px] font-medium text-emerald-600 ring-1 ring-inset ring-emerald-400/20 dark:text-emerald-300">
-              <span className="relative inline-flex h-1.5 w-1.5">
+            <div className="inline-flex items-center gap-2 rounded-full border border-emerald-400/25 bg-emerald-500/[0.08] px-3 py-1.5 text-[11px] font-semibold text-emerald-600 ring-1 ring-inset ring-emerald-400/15 dark:text-emerald-300">
+              <span className="relative inline-flex h-2 w-2">
                 <span className="absolute inset-0 animate-ping rounded-full bg-emerald-400/70" />
-                <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-emerald-400" />
+                <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
               </span>
               Realtime
             </div>
           </div>
           <div className="overflow-x-auto">
             {list.isLoading ? (
-              <div className="flex h-40 items-center justify-center text-sm text-muted-foreground">
+              <div className="flex h-52 items-center justify-center text-sm text-muted-foreground">
                 <Loader2 className="mr-2 h-4 w-4 animate-spin" /> Loading…
               </div>
             ) : rows.length === 0 ? (
-              <div className="flex h-40 items-center justify-center text-sm text-muted-foreground">
+              <div className="flex h-52 items-center justify-center text-sm text-muted-foreground">
                 No users match the current filters.
               </div>
             ) : (
               <table className="w-full text-xs">
-                <thead className="bg-muted/40 text-[10px] font-medium uppercase tracking-[0.08em] text-muted-foreground">
+                <thead className="border-b border-border/40 bg-muted/50 text-[10px] font-semibold uppercase tracking-[0.1em] text-muted-foreground">
                   <tr className="text-left">
-                    <th className="px-4 py-3 w-9">
+                    <th className="px-5 py-3.5 w-11">
                       <input
                         type="checkbox"
                         checked={allOnPageSelected}
                         onChange={toggleAll}
-                        className="h-3.5 w-3.5 rounded-[4px] border-border accent-violet-500"
+                        className="h-3.5 w-3.5 cursor-pointer rounded border-border/60 bg-background accent-[var(--neon-purple)] ring-1 ring-inset ring-border/40 transition"
                       />
                     </th>
                     {[
@@ -1041,19 +1041,19 @@ export function UserManagementFlow() {
                       { label: "Joined", key: "joined" as const },
                       { label: "Actions", key: null },
                     ].map((h) => (
-                      <th key={h.label} className="whitespace-nowrap px-4 py-3 font-medium">
+                      <th key={h.label} className="whitespace-nowrap px-5 py-3.5 font-semibold">
                         {h.key ? (
                           <button
                             type="button"
                             onClick={() => toggleSort(h.key!)}
-                            className="inline-flex items-center gap-1 hover:text-foreground"
+                            className="inline-flex items-center gap-1.5 transition hover:text-foreground"
                           >
                             {h.label}
                             {sortKey === h.key ? (
                               sortDir === "asc" ? (
-                                <ArrowUp className="h-3 w-3" />
+                                <ArrowUp className="h-3 w-3 text-[var(--neon-purple)]" />
                               ) : (
-                                <ArrowDown className="h-3 w-3" />
+                                <ArrowDown className="h-3 w-3 text-[var(--neon-purple)]" />
                               )
                             ) : null}
                           </button>
@@ -1064,7 +1064,7 @@ export function UserManagementFlow() {
                     ))}
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-border/40">
+                <tbody className="divide-y divide-border/[0.35]">
                   {rows.map((u) => {
                     const isAdmin = u.roles.includes("admin");
                     const isDeleted = !!u.deleted_at;
@@ -1073,87 +1073,90 @@ export function UserManagementFlow() {
                     return (
                       <tr
                         key={u.id}
-                        className={`group relative transition-colors hover:bg-muted/40 ${isDeleted ? "opacity-60" : ""} ${checked ? "bg-violet-500/[0.06]" : ""}`}
+                        className={`group relative transition-colors duration-200 hover:bg-muted/30 ${isDeleted ? "opacity-55" : ""} ${checked ? "bg-[var(--neon-purple)]/[0.035]" : ""}`}
                       >
-                        <td className="relative px-4 py-3.5">
+                        <td className="relative px-5 py-3.5">
                           {checked && (
-                            <span className="absolute inset-y-2 left-0 w-0.5 rounded-full bg-gradient-to-b from-violet-500 to-fuchsia-500" />
+                            <span className="absolute inset-y-2.5 left-0 w-[3px] rounded-full bg-gradient-to-b from-[var(--neon-purple)] to-[var(--neon-pink)]" />
                           )}
                           <input
                             type="checkbox"
                             checked={checked}
                             onChange={() => toggleOne(u.id)}
-                            className="h-3.5 w-3.5 rounded-[4px] border-border accent-violet-500"
+                            className="h-3.5 w-3.5 cursor-pointer rounded border-border/60 bg-background accent-[var(--neon-purple)] ring-1 ring-inset ring-border/40 transition"
                           />
                         </td>
-                        <td className="px-4 py-3.5">
-                          <div className="flex items-center gap-3">
-                            <div className="relative flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 text-[11px] font-bold text-white shadow-[0_4px_14px_-4px_rgba(139,92,246,0.55)] ring-2 ring-background">
+                        <td className="px-5 py-3.5">
+                          <div className="flex items-center gap-3.5">
+                            <div className="relative flex h-9 w-9 shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 text-[11px] font-bold text-white shadow-[0_4px_14px_-4px_rgba(139,92,246,0.5)] ring-2 ring-background">
                               {u.display_name.slice(0, 2).toUpperCase()}
                             </div>
                             <div className="min-w-0">
-                              <p className="flex items-center gap-1 truncate text-[13px] font-semibold tracking-tight text-foreground">
+                              <p className="flex items-center gap-1.5 truncate text-[13px] font-semibold tracking-tight text-foreground">
                                 {u.display_name}
-                                {isAdmin && <Crown className="h-3 w-3 text-amber-400" />}
+                                {isAdmin && <Crown className="h-3 w-3 shrink-0 text-amber-400" />}
                               </p>
-                              <p className="font-mono text-[10px] tracking-wide text-muted-foreground/80">
+                              <p className="font-mono text-[10px] tracking-wide text-muted-foreground/70">
                                 {u.id.slice(0, 8)}…
                               </p>
                             </div>
                           </div>
                         </td>
-                        <td className="px-4 py-3.5 text-muted-foreground">
+                        <td className="px-5 py-3.5 text-muted-foreground">
                           <div className="flex items-center gap-1.5">
                             <span className="truncate max-w-[200px] text-[12px]">{u.email ?? "—"}</span>
                             {u.email_verified && (
                               <BadgeCheck
-                                className="h-3.5 w-3.5 text-emerald-500 dark:text-emerald-400"
+                                className="h-3.5 w-3.5 shrink-0 text-emerald-500 dark:text-emerald-400"
                                 aria-label="Verified"
                               />
                             )}
                           </div>
                         </td>
-                        <td className="px-4 py-3.5">
-                          <div className="flex flex-wrap gap-1">
+                        <td className="px-5 py-3.5">
+                          <div className="flex flex-nowrap items-center gap-1.5">
                             {(u.roleDisplays ?? u.roles).length === 0 && (
-                              <span className="inline-flex items-center rounded-md bg-muted px-2 py-0.5 text-[10px] font-medium capitalize text-muted-foreground ring-1 ring-inset ring-border/60">
+                              <span className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-violet-500/[0.08] px-2.5 py-[3px] text-[10px] font-semibold capitalize text-violet-600 ring-1 ring-inset ring-violet-400/20 dark:text-violet-300">
+                                <span className="h-1 w-1 rounded-full bg-violet-500" />
                                 Student
                               </span>
                             )}
                             {(u.roleDisplays ?? u.roles).map((d, i) => (
                               <span
                                 key={i}
-                                className="inline-flex items-center rounded-md bg-violet-500/10 px-2 py-0.5 text-[10px] font-medium capitalize text-violet-600 ring-1 ring-inset ring-violet-400/25 dark:text-violet-300"
+                                className="inline-flex items-center gap-1.5 whitespace-nowrap rounded-full bg-violet-500/[0.08] px-2.5 py-[3px] text-[10px] font-semibold capitalize text-violet-600 ring-1 ring-inset ring-violet-400/20 dark:text-violet-300"
                               >
+                                <span className="h-1 w-1 rounded-full bg-violet-500" />
                                 {d}
                               </span>
                             ))}
                           </div>
                         </td>
-                        <td className="px-4 py-3.5">
+                        <td className="px-5 py-3.5">
                           <span
-                            className={`inline-flex items-center rounded-md px-2 py-0.5 text-[10px] font-medium capitalize ${LEVEL_TONE[String(u.level).toLowerCase()] ?? "bg-muted text-muted-foreground ring-1 ring-inset ring-border/60"}`}
+                            className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-[3px] text-[10px] font-semibold capitalize ${LEVEL_TONE[String(u.level).toLowerCase()] ?? "bg-muted text-muted-foreground ring-1 ring-inset ring-border/60"}`}
                           >
+                            <span className={`h-1 w-1 rounded-full ${String(u.level).toLowerCase() === "student" ? "bg-sky-500" : String(u.level).toLowerCase() === "professional" ? "bg-violet-500" : String(u.level).toLowerCase() === "certificate" ? "bg-fuchsia-500" : String(u.level).toLowerCase() === "expert" ? "bg-amber-500" : "bg-muted-foreground"}`} />
                             {u.level}
                           </span>
                         </td>
-                        <td className="px-4 py-3.5">
+                        <td className="px-5 py-3.5">
                           <span
-                            className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium capitalize ${STATUS_TONE[displayStatus]}`}
+                            className={`inline-flex items-center gap-1.5 whitespace-nowrap rounded-full px-2.5 py-[3px] text-[10px] font-semibold capitalize ${STATUS_TONE[displayStatus]}`}
                           >
-                            <CircleDot className="h-2 w-2" />
+                            <span className={`h-1.5 w-1.5 rounded-full ${displayStatus === "active" ? "bg-emerald-400" : displayStatus === "pending" ? "bg-amber-400" : displayStatus === "suspended" ? "bg-rose-400" : "bg-zinc-400"}`} />
                             {displayStatus}
                           </span>
                         </td>
-                        <td className="px-4 py-3.5 text-[12px] text-muted-foreground whitespace-nowrap tabular-nums">
+                        <td className="px-5 py-3.5 text-[12px] text-muted-foreground whitespace-nowrap tabular-nums">
                           {fmtDateTime(u.last_login_at)}
                         </td>
-                        <td className="px-4 py-3.5 text-[12px] text-muted-foreground tabular-nums">
+                        <td className="px-5 py-3.5 text-[12px] text-muted-foreground tabular-nums">
                           {new Date(u.created_at).toLocaleDateString()}
                         </td>
 
-                        <td className="px-4 py-3.5">
-                          <div className="flex items-center gap-0.5 opacity-70 transition-opacity group-hover:opacity-100">
+                        <td className="px-5 py-3.5">
+                          <div className="flex items-center gap-0.5 opacity-60 transition-opacity group-hover:opacity-100">
 
                             <IconBtn title="View details" onClick={() => setViewing(u)}>
                               <Eye className="h-3.5 w-3.5" />
@@ -1254,13 +1257,13 @@ export function UserManagementFlow() {
             )}
           </div>
           {total > 0 && (
-            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border/50 bg-gradient-to-t from-background/40 to-transparent px-5 py-3.5 text-xs text-muted-foreground">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border/40 bg-gradient-to-t from-background/40 to-transparent px-6 py-4 text-xs text-muted-foreground">
               <span className="font-medium tabular-nums">
                 Showing{" "}
-                <span className="text-foreground">
+                <span className="font-semibold text-foreground">
                   {(page - 1) * pageSize + 1}–{Math.min(page * pageSize, total)}
                 </span>{" "}
-                of <span className="text-foreground">{total.toLocaleString()}</span>
+                of <span className="font-semibold text-foreground">{total.toLocaleString()}</span>
               </span>
               <div className="flex items-center gap-3">
                 <PageSizeSelect
@@ -1270,23 +1273,23 @@ export function UserManagementFlow() {
                     setPage(1);
                   }}
                 />
-                <div className="inline-flex items-center gap-1 rounded-lg border border-border/60 bg-background/50 p-1 shadow-sm">
+                <div className="inline-flex items-center gap-1 rounded-xl border border-border/50 bg-muted/40 p-1 shadow-sm">
                   <button
                     type="button"
                     disabled={page === 1}
                     onClick={() => setPage((p) => Math.max(1, p - 1))}
-                    className="inline-flex h-7 items-center rounded-md px-2.5 text-[11px] font-medium text-muted-foreground transition hover:bg-muted hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent"
+                    className="inline-flex h-8 items-center rounded-lg px-3 text-[11px] font-semibold text-muted-foreground transition hover:bg-background hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent"
                   >
                     Prev
                   </button>
-                  <span className="inline-flex h-7 min-w-[28px] items-center justify-center rounded-md bg-gradient-to-br from-violet-500 to-fuchsia-500 px-2 text-[11px] font-semibold text-white shadow-[0_2px_8px_-2px_rgba(139,92,246,0.6)]">
+                  <span className="inline-flex h-8 min-w-[32px] items-center justify-center rounded-lg bg-gradient-to-br from-violet-500 to-fuchsia-500 px-2.5 text-[11px] font-bold text-white shadow-[0_2px_10px_-2px_rgba(139,92,246,0.5)]">
                     {page}
                   </span>
                   <button
                     type="button"
                     disabled={page >= totalPages}
                     onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
-                    className="inline-flex h-7 items-center rounded-md px-2.5 text-[11px] font-medium text-muted-foreground transition hover:bg-muted hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent"
+                    className="inline-flex h-8 items-center rounded-lg px-3 text-[11px] font-semibold text-muted-foreground transition hover:bg-background hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent"
                   >
                     Next
                   </button>
