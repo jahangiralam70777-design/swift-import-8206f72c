@@ -1254,10 +1254,13 @@ export function UserManagementFlow() {
             )}
           </div>
           {total > 0 && (
-            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border/40 px-4 py-3 text-xs text-muted-foreground">
-              <span>
-                Showing {(page - 1) * pageSize + 1}–{Math.min(page * pageSize, total)} of{" "}
-                {total.toLocaleString()}
+            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-border/50 bg-gradient-to-t from-background/40 to-transparent px-5 py-3.5 text-xs text-muted-foreground">
+              <span className="font-medium tabular-nums">
+                Showing{" "}
+                <span className="text-foreground">
+                  {(page - 1) * pageSize + 1}–{Math.min(page * pageSize, total)}
+                </span>{" "}
+                of <span className="text-foreground">{total.toLocaleString()}</span>
               </span>
               <div className="flex items-center gap-3">
                 <PageSizeSelect
@@ -1267,29 +1270,31 @@ export function UserManagementFlow() {
                     setPage(1);
                   }}
                 />
-                <div className="flex gap-1">
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="rounded-lg"
+                <div className="inline-flex items-center gap-1 rounded-lg border border-border/60 bg-background/50 p-1 shadow-sm">
+                  <button
+                    type="button"
                     disabled={page === 1}
                     onClick={() => setPage((p) => Math.max(1, p - 1))}
+                    className="inline-flex h-7 items-center rounded-md px-2.5 text-[11px] font-medium text-muted-foreground transition hover:bg-muted hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent"
                   >
                     Prev
-                  </Button>
-                  <Button
-                    size="sm"
-                    variant="outline"
-                    className="rounded-lg"
+                  </button>
+                  <span className="inline-flex h-7 min-w-[28px] items-center justify-center rounded-md bg-gradient-to-br from-violet-500 to-fuchsia-500 px-2 text-[11px] font-semibold text-white shadow-[0_2px_8px_-2px_rgba(139,92,246,0.6)]">
+                    {page}
+                  </span>
+                  <button
+                    type="button"
                     disabled={page >= totalPages}
                     onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+                    className="inline-flex h-7 items-center rounded-md px-2.5 text-[11px] font-medium text-muted-foreground transition hover:bg-muted hover:text-foreground disabled:cursor-not-allowed disabled:opacity-40 disabled:hover:bg-transparent"
                   >
                     Next
-                  </Button>
+                  </button>
                 </div>
               </div>
             </div>
           )}
+
         </div>
 
         {/* Real-time activity sidebar */}
