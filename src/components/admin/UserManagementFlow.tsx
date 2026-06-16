@@ -1064,7 +1064,7 @@ export function UserManagementFlow() {
                     ))}
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className="divide-y divide-border/40">
                   {rows.map((u) => {
                     const isAdmin = u.roles.includes("admin");
                     const isDeleted = !!u.deleted_at;
@@ -1073,74 +1073,85 @@ export function UserManagementFlow() {
                     return (
                       <tr
                         key={u.id}
-                        className={`border-t border-border/30 transition hover:bg-background/40 ${isDeleted ? "opacity-60" : ""} ${checked ? "bg-violet-500/5" : ""}`}
+                        className={`group relative transition-colors hover:bg-muted/40 ${isDeleted ? "opacity-60" : ""} ${checked ? "bg-violet-500/[0.06]" : ""}`}
                       >
-                        <td className="px-3 py-3">
+                        <td className="relative px-4 py-3.5">
+                          {checked && (
+                            <span className="absolute inset-y-2 left-0 w-0.5 rounded-full bg-gradient-to-b from-violet-500 to-fuchsia-500" />
+                          )}
                           <input
                             type="checkbox"
                             checked={checked}
                             onChange={() => toggleOne(u.id)}
-                            className="h-3.5 w-3.5 rounded border-border accent-violet-500"
+                            className="h-3.5 w-3.5 rounded-[4px] border-border accent-violet-500"
                           />
                         </td>
-                        <td className="px-3 py-3">
-                          <div className="flex items-center gap-2.5">
-                            <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 text-[11px] font-bold text-white shadow-glow">
+                        <td className="px-4 py-3.5">
+                          <div className="flex items-center gap-3">
+                            <div className="relative flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-violet-500 to-fuchsia-500 text-[11px] font-bold text-white shadow-[0_4px_14px_-4px_rgba(139,92,246,0.55)] ring-2 ring-background">
                               {u.display_name.slice(0, 2).toUpperCase()}
                             </div>
                             <div className="min-w-0">
-                              <p className="flex items-center gap-1 truncate text-sm font-medium">
+                              <p className="flex items-center gap-1 truncate text-[13px] font-semibold tracking-tight text-foreground">
                                 {u.display_name}
                                 {isAdmin && <Crown className="h-3 w-3 text-amber-400" />}
                               </p>
-                              <p className="font-mono text-[10px] text-muted-foreground">
+                              <p className="font-mono text-[10px] tracking-wide text-muted-foreground/80">
                                 {u.id.slice(0, 8)}…
                               </p>
                             </div>
                           </div>
                         </td>
-                        <td className="px-3 py-3 text-muted-foreground">
+                        <td className="px-4 py-3.5 text-muted-foreground">
                           <div className="flex items-center gap-1.5">
-                            <span className="truncate max-w-[200px]">{u.email ?? "—"}</span>
+                            <span className="truncate max-w-[200px] text-[12px]">{u.email ?? "—"}</span>
                             {u.email_verified && (
                               <BadgeCheck
-                                className="h-3 w-3 text-emerald-400"
+                                className="h-3.5 w-3.5 text-emerald-500 dark:text-emerald-400"
                                 aria-label="Verified"
                               />
                             )}
                           </div>
                         </td>
-                        <td className="px-3 py-3">
+                        <td className="px-4 py-3.5">
                           <div className="flex flex-wrap gap-1">
                             {(u.roleDisplays ?? u.roles).length === 0 && (
-                              <span className="text-[10px] text-muted-foreground">Student</span>
+                              <span className="inline-flex items-center rounded-md bg-muted px-2 py-0.5 text-[10px] font-medium capitalize text-muted-foreground ring-1 ring-inset ring-border/60">
+                                Student
+                              </span>
                             )}
                             {(u.roleDisplays ?? u.roles).map((d, i) => (
-                              <Badge
+                              <span
                                 key={i}
-                                variant="outline"
-                                className="rounded-full text-[10px] capitalize"
+                                className="inline-flex items-center rounded-md bg-violet-500/10 px-2 py-0.5 text-[10px] font-medium capitalize text-violet-600 ring-1 ring-inset ring-violet-400/25 dark:text-violet-300"
                               >
                                 {d}
-                              </Badge>
+                              </span>
                             ))}
                           </div>
                         </td>
-                        <td className="px-3 py-3 text-muted-foreground capitalize">{u.level}</td>
-                        <td className="px-3 py-3">
+                        <td className="px-4 py-3.5">
                           <span
-                            className={`inline-flex items-center rounded-full border px-2 py-0.5 text-[10px] capitalize ${STATUS_TONE[displayStatus]}`}
+                            className={`inline-flex items-center rounded-md px-2 py-0.5 text-[10px] font-medium capitalize ${LEVEL_TONE[String(u.level).toLowerCase()] ?? "bg-muted text-muted-foreground ring-1 ring-inset ring-border/60"}`}
                           >
-                            <CircleDot className="mr-1 h-2 w-2" />
+                            {u.level}
+                          </span>
+                        </td>
+                        <td className="px-4 py-3.5">
+                          <span
+                            className={`inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-[10px] font-medium capitalize ${STATUS_TONE[displayStatus]}`}
+                          >
+                            <CircleDot className="h-2 w-2" />
                             {displayStatus}
                           </span>
                         </td>
-                        <td className="px-3 py-3 text-muted-foreground whitespace-nowrap">
+                        <td className="px-4 py-3.5 text-[12px] text-muted-foreground whitespace-nowrap tabular-nums">
                           {fmtDateTime(u.last_login_at)}
                         </td>
-                        <td className="px-3 py-3 text-muted-foreground">
+                        <td className="px-4 py-3.5 text-[12px] text-muted-foreground tabular-nums">
                           {new Date(u.created_at).toLocaleDateString()}
                         </td>
+
                         <td className="px-3 py-3">
                           <div className="flex items-center gap-1">
                             <IconBtn title="View details" onClick={() => setViewing(u)}>
